@@ -7,12 +7,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amzur.order_management.constants.ApplicationConstants;
 import com.amzur.order_management.dto.request.OrderRequest;
 import com.amzur.order_management.dto.response.OrderResponse;
 import com.amzur.order_management.entities.LineItemEntity;
 import com.amzur.order_management.entities.OrderEntity;
+import com.amzur.order_management.handler.UserNotFound;
 import com.amzur.order_management.repository.LineItemRepository;
 import com.amzur.order_management.repository.OrderRepository;
+
 
 @Service
 public class OrderService implements OrderServiceIn{
@@ -39,7 +42,8 @@ public class OrderService implements OrderServiceIn{
 
 		lineItemRepository.saveAll(lineItems);
 		OrderResponse orderResponse = new OrderResponse();
-		BeanUtils.copyProperties(orderEntity, orderResponse);
+		orderResponse.setOrderId(orderId);
+		//BeanUtils.copyProperties(orderEntity, orderResponse);
 
 		return orderResponse;
 	}
@@ -52,8 +56,14 @@ public class OrderService implements OrderServiceIn{
 
 	@Override
 	public OrderResponse findByOrderId(Long orderId) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderEntity orderEntity=orderRepository.findById(orderId).orElseThrow(()->new UserNotFound(ApplicationConstants.USER_NOT_FOUND));
+		
+		
+		
+		OrderResponse orderResponse=new OrderResponse();
+		orderResponse.setOrderId(orderEntity.getId());
+		
+		return orderResponse;
 	}
 
 	@Override

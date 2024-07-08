@@ -16,7 +16,9 @@ public class OrderEntity {
     private Long id;
     @Column(name = "USER_ID")
     private Long userId;
-	public Long getId() {
+	
+    
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
