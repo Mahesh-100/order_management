@@ -53,7 +53,6 @@ public class OrderServiceImpl implements OrderService{
 		OrderEntity orderEntity=orderRepository.findById(orderId).orElseThrow(()->new UserNotFound(ApplicationConstants.USER_NOT_FOUND));
 	    OrderResponse orderResponse=new OrderResponse();
 		orderResponse.setId(orderEntity.getId());
-		
 		return orderResponse;
 	}
 
