@@ -7,5 +7,7 @@ import com.amzur.order_management.entities.LineItemEntity;
 
 @Repository
 public interface LineItemRepository extends JpaRepository<LineItemEntity, Long>{
+	
+	
 
 }

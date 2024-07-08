@@ -3,15 +3,17 @@ package com.amzur.order_management.dto.response;
 
 public class OrderResponse {
 
-	private Long orderId;
+	private Long Id;
 
-	public Long getOrderId() {
-		return orderId;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setId(Long id) {
+		Id = id;
 	}
+
+	
 	
 	
 	

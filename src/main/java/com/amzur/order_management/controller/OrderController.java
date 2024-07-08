@@ -1,5 +1,7 @@
 package com.amzur.order_management.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +23,18 @@ public class OrderController {
 	    @PostMapping
 	    public OrderResponse createOrder(@RequestBody OrderRequest orderRequest) {
 	    	//System.out.println("Book IDs:"+ orderRequest.getBookIds());
-	        return orderService.save(orderRequest);
+	        return orderService.createOrder(orderRequest);
 	    }
 	    
 	    
 	    @GetMapping("/{orderId}")
-	    public OrderResponse getOrderDetails(@PathVariable Long orderId) {
+	    public OrderResponse getOrderById(@PathVariable Long orderId) {
 	    	
-	        return orderService.findByOrderId(orderId);
+	        return orderService.getOrderById(orderId);
+	    }
+	    @GetMapping("/userId/{userId}")
+	    public List<OrderResponse> getAllOrdersByUserId(@PathVariable Long userId) {
+	    	return orderService.getAllOrdersByUserId(userId);
 	    }
 
 }
