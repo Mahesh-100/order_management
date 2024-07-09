@@ -31,7 +31,7 @@ OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setUserId(orderRequest.getUserId());
 		BeanUtils.copyProperties(orderRequest, orderEntity);
 		orderEntity = orderRepository.save(orderEntity);
-		final Long orderId = orderEntity.getId();
+		final Long orderId = orderEntity.getOrderId();
 		orderRequest.getBookIds().stream()
 	    .map(bookId -> {
 	        LineItemEntity lineItem = new LineItemEntity();
@@ -45,6 +45,9 @@ OrderEntity orderEntity = new OrderEntity();
 
 		return orderResponse;
 	}
+	
+	
+	
 	@Override
 	public OrderResponse getOrderById(Long orderId) {
 		OrderEntity orderEntity=orderRepository.findById(orderId).orElseThrow(()->new UserNotFound(ApplicationConstants.USER_NOT_FOUND));
@@ -52,6 +55,8 @@ OrderEntity orderEntity = new OrderEntity();
 	    BeanUtils.copyProperties(orderEntity, orderResponse);
 		return orderResponse;
 	}
+	
+	
 	
 	
 	@Override
