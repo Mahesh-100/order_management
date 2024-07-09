@@ -24,11 +24,9 @@ public class OrderServiceImpl implements OrderService{
     private OrderRepository orderRepository;
     @Autowired
     private LineItemRepository lineItemRepository;
-
 	@Override
 	public OrderResponse createOrder(OrderRequest orderRequest) {
-	
-		OrderEntity orderEntity = new OrderEntity();
+OrderEntity orderEntity = new OrderEntity();
 		
 		orderEntity.setUserId(orderRequest.getUserId());
 		BeanUtils.copyProperties(orderRequest, orderEntity);
@@ -47,22 +45,21 @@ public class OrderServiceImpl implements OrderService{
 
 		return orderResponse;
 	}
-	
 	@Override
 	public OrderResponse getOrderById(Long orderId) {
 		OrderEntity orderEntity=orderRepository.findById(orderId).orElseThrow(()->new UserNotFound(ApplicationConstants.USER_NOT_FOUND));
-	    OrderResponse orderResponse=new OrderResponse();
-		orderResponse..orderEntity
-		
-		(orderEntity.getId());
+		OrderResponse orderResponse=new OrderResponse();
+	    BeanUtils.copyProperties(orderEntity, orderResponse);
 		return orderResponse;
 	}
-
+	
+	
 	@Override
 	public List<OrderResponse> getAllOrdersByUserId(Long userId) {
-	
+
 		return orderRepository.findByUserId(userId).stream().map(this::convertEntityToResponse).collect(Collectors.toList());
 	}
+
 	public OrderResponse convertEntityToResponse(OrderEntity orderEntity) {
 		OrderResponse orderResponse=new OrderResponse();
 		BeanUtils.copyProperties(orderEntity, orderResponse);
