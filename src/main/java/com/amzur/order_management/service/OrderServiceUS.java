@@ -1,6 +1,8 @@
 package com.amzur.order_management.service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -69,6 +71,17 @@ OrderEntity orderEntity = new OrderEntity();
 		BeanUtils.copyProperties(lineItemEntity, orderResponse);
 		return orderResponse;
 	}
-
+	public Map<Long, Long> getOrderCountsByUser(LocalDate date) {
+		List<OrderEntity>orders=orderRepository.findAllByOrderDate(date);
+		return orders.stream().collect(Collectors.groupingBy(OrderEntity::getUserId,Collectors.counting())) ;
+	}
+	public Long getUserWithMaxOrders(LocalDate date) {
+        Map<Long, Long> orderCountsByUser = getOrderCountsByUser(date);
+        return orderCountsByUser.entrySet()
+                                .stream()
+                                .max(Map.Entry.comparingByValue())
+                                .map(Map.Entry::getKey)
+                                .orElse(null);
+    }
 
 }
