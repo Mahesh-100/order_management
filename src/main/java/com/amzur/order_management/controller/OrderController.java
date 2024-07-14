@@ -1,5 +1,6 @@
 package com.amzur.order_management.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,8 @@ public class OrderController {
 	    public List<OrderResponse> getAllOrdersByUserId(@PathVariable Long userId) {
 	    	return orderService.getAllOrdersByUserId(userId);
 	    }
-
+	    @GetMapping("/count/{date}")
+	    public Long getUserWithMaxOrders(@PathVariable LocalDate date) {
+	    	return orderService.getUserWithMaxOrders(date);
+	    }
 }

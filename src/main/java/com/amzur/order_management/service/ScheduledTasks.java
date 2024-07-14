@@ -22,7 +22,7 @@ public class ScheduledTasks {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Scheduled(cron = "0 10 21 * * ?")
+    @Scheduled(cron = "0 16 19 * * ?")
     public void sendEmailToTopUser() {
         LocalDate today = LocalDate.now();
         Long topUserId = orderService.getUserWithMaxOrders(today);
