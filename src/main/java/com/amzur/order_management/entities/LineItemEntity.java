@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -19,6 +21,10 @@ public class LineItemEntity {
     private Long orderId;
     @Column(name = "BOOK_ID")
     private int bookId;
+    
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID", insertable = false, updatable = false)
+    private OrderEntity order;
 	public LineItemEntity(Long id, Long orderId, int bookId) {
 		super();
 		this.id = id;

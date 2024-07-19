@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -21,7 +22,7 @@ public class ScheduledTasks {
     
     @Autowired
     private RestTemplate restTemplate;
-
+    @Async("taskExecutor")
     @Scheduled(cron = "0 16 19 * * ?")
     public void sendEmailToTopUser() {
         LocalDate today = LocalDate.now();
@@ -34,7 +35,7 @@ public class ScheduledTasks {
             emailService.sendEmail(email, subject, text);
         }
     }
-
+    @Async("taskExecutor")
     private String getUserEmailById(Long topUserId) {
     	LocalDate today = LocalDate.now();
     	Long UserId = orderService.getUserWithMaxOrders(today);
